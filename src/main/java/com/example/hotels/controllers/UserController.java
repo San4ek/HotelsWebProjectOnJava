@@ -1,5 +1,6 @@
 package com.example.hotels.controllers;
 
+import com.example.hotels.enums.Role;
 import com.example.hotels.models.User;
 import com.example.hotels.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -41,21 +42,34 @@ public class UserController {
     }
 
 
-    @GetMapping("/user/{id}")
-    public String user(@PathVariable Long id, Model model){
+    @GetMapping("/user")
+    public String user(Model model){
         model.addAttribute("user", appController.user);
         return "user-info";
     }
 
-    @GetMapping("/user/{id}/edit")
-    public String editUser(@PathVariable Long id, Model model){
+    @GetMapping("/user/edit")
+    public String editUser(Model model){
         model.addAttribute("user", appController.user);
         return "user-edit";
     }
 
-    @PostMapping("/user/edit/{id}")
-    public String editingUser(@PathVariable Long id, User newUser){
-        userService.editUser(id, newUser, appController.user);
+    @PostMapping("/user/update")
+    public String editingUser(User newUser){
+        userService.editUser(newUser, appController.user);
         return "login";
+    }
+
+    @GetMapping("/users")
+    public String users(Model model) {
+        model.addAttribute("users", userService.getUserByRole(Role.USER));
+        return "users";
+    }
+
+    @PostMapping("/user/{id}/set-role")
+    public String setRole(@PathVariable Long id) {
+        System.out.println("work");
+        userService.setDirectorRole(id);
+        return "redirect:/users";
     }
 }

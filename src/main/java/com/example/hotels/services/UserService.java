@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -27,13 +28,17 @@ public class UserService {
         return true;
     }
 
+    public List<User> getUserByRole(Role role) {
+        return userRepository.findByRole(role);
+    }
+
     public User getUserByPrincipal(Principal principal) {
         if(principal==null)return new User();
         return userRepository.findByLogin(principal.getName());
     }
 
-    public void editUser(Long id, User newUser, User olduser) {
-        newUser.setId(id);
+    public void editUser(User newUser, User olduser) {
+        newUser.setId(olduser.getId());
         newUser.setPassword(olduser.getPassword());
         newUser.setRole(olduser.getRole());
         userRepository.save(newUser);
@@ -41,5 +46,15 @@ public class UserService {
 
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public void setDirectorRole(Long id) {
+        User user = userRepository.findById(id).orElseThrow();
+        user.setRole(Role.DIRECTOR);
+        userRepository.save(user);
+    }
+
+    public List<User> getDirectors() {
+        return userRepository.findByRole(Role.DIRECTOR);
     }
 }

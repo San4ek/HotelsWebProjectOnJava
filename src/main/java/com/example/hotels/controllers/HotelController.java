@@ -18,8 +18,8 @@ public class HotelController {
     private final HotelService hotelService;
     private final CompanyService companyService;
     private final AppController appController;
-    private final DirectorService directorService;
     private final CountryService countryService;
+    private final UserService userService;
 
     @GetMapping("/hotels")
     public String hotels(Model model){
@@ -34,6 +34,7 @@ public class HotelController {
         model.addAttribute("hotel",hotelService.getHotel(id));
         model.addAttribute("user", appController.user);
         model.addAttribute("administrator", Role.ADMINISTRATOR);
+        model.addAttribute("userRole", Role.USER);
         return "hotel-info";
     }
 
@@ -53,7 +54,7 @@ public class HotelController {
     @GetMapping("/hotel/create")
     public String createHotel(Model model){
         model.addAttribute("companies", companyService.getCompanies());
-        model.addAttribute("directors", directorService.getDirectors());
+        model.addAttribute("directors", userService.getDirectors());
         model.addAttribute("countries", countryService.getCountries());
         return "hotel-create";
     }
@@ -68,10 +69,9 @@ public class HotelController {
     public String editHotel(@PathVariable Long id, Model model) {
         model.addAttribute("hotel", hotelService.getHotel(id));
         model.addAttribute("companies", companyService.getCompanies());
-        model.addAttribute("directors", directorService.getDirectors());
+        model.addAttribute("directors", userService.getDirectors());
         model.addAttribute("countries", countryService.getCountries());
-        return "hotel-edit";
-    }
+        return "hotel-edit";    }
 
     @PostMapping("/hotel/edit/{id}")
     public String editHotel(@PathVariable Long id, Hotel hotel) {

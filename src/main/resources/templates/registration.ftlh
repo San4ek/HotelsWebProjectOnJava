@@ -7,7 +7,7 @@
 <h1>Hotels</h1><hr>
 <h4>Registration</h4>
 <form action="/registration" method="post">
-    Email <input type="email" required name="email"><br><br>
+    Name <input type="text" required name="name"><br><br>
     Login <input type="text" required name="login"><br><br>
     Password <input type="password" required name="password"><br><br>
     <input type="hidden" name="_csrf" value="${_csrf.token}">

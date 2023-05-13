@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
     List<Purchase> findByUserId(Long id);
+
+    List<Purchase> findByDirectorId(Long id);
 }

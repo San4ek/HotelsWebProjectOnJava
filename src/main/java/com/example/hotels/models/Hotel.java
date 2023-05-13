@@ -29,9 +29,9 @@ public class Hotel {
     @Column(name = "number_of_stars")
     private int numberOfStars;
 
-    @OneToOne
-    @JoinColumn(name = "director_id", referencedColumnName = "director_id")
-    private Director director;
+    @ManyToOne
+    @JoinColumn(name = "director_id")
+    private User director;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "hotel", cascade = CascadeType.REMOVE)
     private List<Employee> employees;
@@ -41,5 +41,5 @@ public class Hotel {
     private Company company;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "hotel", cascade = CascadeType.REMOVE)
-    private List<Purchase> purchase;
+    private List<Purchase> purchases;
 }

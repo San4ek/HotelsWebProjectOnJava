@@ -23,8 +23,8 @@ public class User implements UserDetails {
     @Column(name = "login")
     private String login;
 
-    @Column(name="email")
-    private String email;
+    @Column(name="name")
+    private String name;
 
     @Column(name = "password")
     private String password;
@@ -33,7 +33,14 @@ public class User implements UserDetails {
     private Role role;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.REMOVE)
-    private List<Purchase> purchases;
+    private List<Purchase> purchasesForUser;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "director", cascade = CascadeType.REMOVE)
+    private List<Hotel> hotel;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "director", cascade = CascadeType.REMOVE)
+
+    private List<Purchase> purchasesForDirector;
 
     public boolean isUser() {
         return role.equals(Role.USER);

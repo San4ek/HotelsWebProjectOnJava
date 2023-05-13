@@ -26,10 +26,12 @@
         <input type="submit" value="Edit hotel">
     </form>
     <#else>
-        <form action="/hotel/order/${hotel.id}" method="post">
-            <input type="hidden" name="_csrf" value="${_csrf.token}">
-            <input type="submit" value="Order hotel">
-        </form>
+        <#if user.role==userRole>
+            <form action="/hotel/order/${hotel.id}" method="post">
+                <input type="hidden" name="_csrf" value="${_csrf.token}">
+                <input type="submit" value="Order hotel">
+            </form>
+        </#if>
 </#if>
 
 </body>

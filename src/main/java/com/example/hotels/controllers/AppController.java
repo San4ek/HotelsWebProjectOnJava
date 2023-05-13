@@ -1,5 +1,6 @@
 package com.example.hotels.controllers;
 
+import com.example.hotels.enums.Role;
 import com.example.hotels.models.User;
 import com.example.hotels.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ public class AppController {
     @GetMapping("/")
     public String hotels(Principal principal, Model model){
         model.addAttribute("user", userService.getUserByPrincipal(principal));
+        model.addAttribute("administrator", Role.ADMINISTRATOR);
         return "main-page";
     }
 }

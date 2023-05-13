@@ -36,13 +36,12 @@ public class SecurityConfig{
                         "/registration",
                         "/employees",
                         "/employee/**",
-                        "/directors",
-                        "/director/**",
                         "/jobs",
                         "/jobs/**",
                         "/purchases",
                         "/purchase/**",
-                        "/user/**")
+                        "/user/**",
+                        "/users")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()

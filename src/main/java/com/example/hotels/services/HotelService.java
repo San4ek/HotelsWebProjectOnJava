@@ -35,4 +35,8 @@ public class HotelService {
         hotel.setId(id);
         hotelRepository.save(hotel);
     }
+
+    public List<Hotel> findByDirectorId(Long id) {
+        return hotelRepository.findByDirectorId(id);
+    }
 }

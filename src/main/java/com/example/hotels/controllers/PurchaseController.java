@@ -20,6 +20,8 @@ public class PurchaseController {
     @GetMapping("/purchases")
     public String purchases(Model model) {
         model.addAttribute("purchases", purchaseService.getPurchases(appController.user));
+        model.addAttribute("user", appController.user);
+        model.addAttribute("directorRole", Role.DIRECTOR);
         return "purchases";
     }
 
@@ -32,8 +34,32 @@ public class PurchaseController {
     }
 
     @PostMapping("/purchase/delete/{id}")
-    public String deleteCompany(@PathVariable Long id) {
+    public String deletePurchase(@PathVariable Long id) {
         purchaseService.deletePurchase(id);
+        return "redirect:/purchases";
+    }
+
+    @PostMapping("/purchase/{id}/except")
+    public String exceptPurchase(@PathVariable Long id) {
+        purchaseService.exceptPurchase(id);
+        return "redirect:/purchases";
+    }
+
+    @PostMapping("/purchase/{id}/reject")
+    public String rejectPurchase(@PathVariable Long id) {
+        purchaseService.rejectPurchase(id);
+        return "redirect:/purchases";
+    }
+
+    @PostMapping("/purchase/{id}/inhabited")
+    public String inhabitPurchase(@PathVariable Long id) {
+        purchaseService.inhabitPurchase(id);
+        return "redirect:/purchases";
+    }
+
+    @PostMapping("/purchase/{id}/evicted")
+    public String evictPurchase(@PathVariable Long id) {
+        purchaseService.evictPurchase(id);
         return "redirect:/purchases";
     }
 }
