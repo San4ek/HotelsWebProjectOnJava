@@ -8,7 +8,7 @@
 <h1>Purchases</h1><hr>
 <#if purchases?has_content>
     <#list purchases as purchase>
-        <p>${purchase.id} | ${purchase.user.name} | ${purchase.hotel.name} | ${purchase.purchaseStatus.name()}</p>
+        ${purchase.id} | ${purchase.user.name} | ${purchase.hotel.name} | ${purchase.purchaseStatus.name()}
         <#if user.role==directorRole>
             <#if purchase.isWait()>
                 <form action="/purchase/${purchase.id}/except" method="post">
@@ -32,7 +32,7 @@
                     <input type="submit" value="Evict">
                 </form>
             </#if>
-        </#if>
+        </#if><br>
     </#list>
 <#else><h3>No purchases</h3>
 </#if>

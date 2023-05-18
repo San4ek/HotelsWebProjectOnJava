@@ -1,6 +1,7 @@
 package com.example.hotels.services;
 
 import com.example.hotels.models.Hotel;
+import com.example.hotels.models.Purchase;
 import com.example.hotels.repositories.HotelRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +37,19 @@ public class HotelService {
         hotelRepository.save(hotel);
     }
 
-    public List<Hotel> findByDirectorId(Long id) {
-        return hotelRepository.findByDirectorId(id);
+    public Hotel increaseNumbOfRooms(Purchase purchase) {
+        Hotel hotel = purchase.getHotel();
+        int numbOfRooms=hotel.getNumbOfRooms();
+        hotel.setNumbOfRooms(++numbOfRooms);
+
+        return  hotel;
+    }
+
+    public Hotel reduceNumbOfRooms(Purchase purchase) {
+        Hotel hotel = purchase.getHotel();
+        int numbOfRooms=hotel.getNumbOfRooms();
+        hotel.setNumbOfRooms(--numbOfRooms);
+
+        return  hotel;
     }
 }

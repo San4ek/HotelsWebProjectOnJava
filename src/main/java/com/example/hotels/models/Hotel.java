@@ -42,4 +42,7 @@ public class Hotel {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "hotel", cascade = CascadeType.REMOVE)
     private List<Purchase> purchases;
+
+    @Column(name = "numb_of_rooms")
+    private int numbOfRooms;
 }

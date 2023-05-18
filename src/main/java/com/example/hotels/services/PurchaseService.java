@@ -16,7 +16,6 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class PurchaseService {
-
     private final PurchaseRepository purchaseRepository;
     private final HotelService hotelService;
 
@@ -32,9 +31,14 @@ public class PurchaseService {
 
     public void savePurchase(Purchase purchase) {
         purchaseRepository.save(purchase);
+        Hotel hotel = hotelService.reduceNumbOfRooms(purchase);
+        hotelService.saveHotel(hotel);
     }
 
     public void deletePurchase(Long id) {
+        Purchase purchase = purchaseRepository.findById(id).orElseThrow();
+        Hotel hotel = hotelService.increaseNumbOfRooms(purchase);
+        hotelService.saveHotel(hotel);
         purchaseRepository.deleteById(id);
     }
 
@@ -59,12 +63,16 @@ public class PurchaseService {
     public void rejectPurchase(Long id) {
         Purchase purchase = purchaseRepository.findById(id).orElseThrow();
         purchase.setPurchaseStatus(PurchaseStatus.REJECT);
+        Hotel hotel = hotelService.increaseNumbOfRooms(purchase);
+        hotelService.saveHotel(hotel);
         purchaseRepository.save(purchase);
     }
 
     public void evictPurchase(Long id) {
         Purchase purchase = purchaseRepository.findById(id).orElseThrow();
         purchase.setPurchaseStatus(PurchaseStatus.EVICTED);
+        Hotel hotel = hotelService.increaseNumbOfRooms(purchase);
+        hotelService.saveHotel(hotel);
         purchaseRepository.save(purchase);
     }
 
