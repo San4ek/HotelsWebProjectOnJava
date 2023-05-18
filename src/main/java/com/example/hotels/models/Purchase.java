@@ -33,6 +33,10 @@ public class Purchase {
     @JoinColumn(name = "director_id")
     private User director;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "room_id")
+    private Room room;
+
     public boolean isExcepted() {
         return purchaseStatus.equals(PurchaseStatus.EXCEPT);
     }

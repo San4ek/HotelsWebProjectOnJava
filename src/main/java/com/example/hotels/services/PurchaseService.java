@@ -2,8 +2,10 @@ package com.example.hotels.services;
 
 import com.example.hotels.enums.PurchaseStatus;
 import com.example.hotels.enums.Role;
+import com.example.hotels.enums.RoomStatus;
 import com.example.hotels.models.Hotel;
 import com.example.hotels.models.Purchase;
+import com.example.hotels.models.Room;
 import com.example.hotels.models.User;
 import com.example.hotels.repositories.PurchaseRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,14 +20,19 @@ import java.util.List;
 public class PurchaseService {
     private final PurchaseRepository purchaseRepository;
     private final HotelService hotelService;
+    private final RoomService roomService;
 
-    public Purchase createPurchase(User user, Long hotelId) {
+    public Purchase createPurchase(User user, Long hotelId, int roomNumb) {
         Purchase purchase =  new Purchase();
         purchase.setUser(user);
         Hotel hotel = hotelService.getHotel(hotelId);
         purchase.setHotel(hotel);
         purchase.setPurchaseStatus(PurchaseStatus.WAIT);
         purchase.setDirector(hotel.getDirector());
+        Room room= roomService.getRoomByHotelIdAndRoomNumb(hotelId,roomNumb);
+        room.setRoomStatus(RoomStatus.BUSY);
+        roomService.updateRoomStatusBusy(roomNumb, hotelId);
+        purchase.setRoom(room);
         return purchase;
     }
 
@@ -39,6 +46,7 @@ public class PurchaseService {
         Purchase purchase = purchaseRepository.findById(id).orElseThrow();
         Hotel hotel = hotelService.increaseNumbOfRooms(purchase);
         hotelService.saveHotel(hotel);
+        roomService.updateRoomStatusEmpty(purchase.getRoom().getRoomNumb(), hotel.getId());
         purchaseRepository.deleteById(id);
     }
 
@@ -57,12 +65,14 @@ public class PurchaseService {
     public void exceptPurchase(Long id) {
         Purchase purchase = purchaseRepository.findById(id).orElseThrow();
         purchase.setPurchaseStatus(PurchaseStatus.EXCEPT);
+        roomService.updateRoomStatusBusy(purchase.getRoom().getRoomNumb(), purchase.getHotel().getId());
         purchaseRepository.save(purchase);
     }
 
     public void rejectPurchase(Long id) {
         Purchase purchase = purchaseRepository.findById(id).orElseThrow();
         purchase.setPurchaseStatus(PurchaseStatus.REJECT);
+        roomService.updateRoomStatusEmpty(purchase.getRoom().getRoomNumb(), purchase.getHotel().getId());
         Hotel hotel = hotelService.increaseNumbOfRooms(purchase);
         hotelService.saveHotel(hotel);
         purchaseRepository.save(purchase);
@@ -71,6 +81,7 @@ public class PurchaseService {
     public void evictPurchase(Long id) {
         Purchase purchase = purchaseRepository.findById(id).orElseThrow();
         purchase.setPurchaseStatus(PurchaseStatus.EVICTED);
+        roomService.updateRoomStatusEmpty(purchase.getRoom().getRoomNumb(), purchase.getHotel().getId());
         Hotel hotel = hotelService.increaseNumbOfRooms(purchase);
         hotelService.saveHotel(hotel);
         purchaseRepository.save(purchase);
@@ -79,6 +90,8 @@ public class PurchaseService {
     public void inhabitPurchase(Long id) {
         Purchase purchase = purchaseRepository.findById(id).orElseThrow();
         purchase.setPurchaseStatus(PurchaseStatus.INHABITED);
+        Hotel hotel = hotelService.increaseNumbOfRooms(purchase);
+        hotelService.saveHotel(hotel);
         purchaseRepository.save(purchase);
     }
 }

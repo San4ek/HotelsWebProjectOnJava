@@ -8,7 +8,7 @@
 <h1>Purchases</h1><hr>
 <#if purchases?has_content>
     <#list purchases as purchase>
-        ${purchase.id} | ${purchase.user.name} | ${purchase.hotel.name} | ${purchase.purchaseStatus.name()}
+        ${purchase.id} | ${purchase.user.name} | ${purchase.hotel.name} | ${purchase.purchaseStatus.name()} | ${purchase.room.roomNumb}
         <#if user.role==directorRole>
             <#if purchase.isWait()>
                 <form action="/purchase/${purchase.id}/except" method="post">

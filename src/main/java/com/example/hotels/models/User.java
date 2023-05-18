@@ -45,7 +45,8 @@ public class User implements UserDetails {
     public boolean isUser() {
         return role.equals(Role.USER);
     }
-    public boolean isDirector() {return role.equals(Role.ADMINISTRATOR);}
+    public boolean isAdministrator() {return role.equals(Role.ADMINISTRATOR);}
+    public boolean isDirector() {return role.equals(Role.DIRECTOR);}
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

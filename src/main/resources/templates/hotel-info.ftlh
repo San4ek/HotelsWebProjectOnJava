@@ -15,7 +15,6 @@
 <a href="/employee/${employee.id}">${employee.name}</a><br>
 </#list>
 <b>Director </b><a href="/director/${hotel.director.id}">${hotel.director.name}</a><br>
-<hr>
 <#if user.role==administrator>
     <form action="/hotel/delete/${hotel.id}" method="post">
         <input type="hidden" name="_csrf" value="${_csrf.token}">
@@ -29,8 +28,14 @@
         <#if user.role==userRole>
             <#if hotel.numbOfRooms!=0>
                 <form action="/hotel/order/${hotel.id}" method="post">
+                    <b>Rooms</b>
+                            <#if rooms?has_content>
+                                <#list rooms as room>
+                                    <input type="radio" name="roomNumb" value="${room.roomNumb}">${room.roomNumb}
+                                </#list>
+                            </#if>
                     <input type="hidden" name="_csrf" value="${_csrf.token}">
-                    <input type="submit" value="Order hotel">
+                    <br><input type="submit" value="Order hotel">
                 </form>
                 <#else> No empty rooms
             </#if>

@@ -1,6 +1,7 @@
 package com.example.hotels.controllers;
 
 import com.example.hotels.enums.Role;
+import com.example.hotels.enums.RoomStatus;
 import com.example.hotels.models.Hotel;
 import com.example.hotels.models.Purchase;
 import com.example.hotels.services.*;
@@ -20,6 +21,7 @@ public class HotelController {
     private final AppController appController;
     private final CountryService countryService;
     private final UserService userService;
+    private final RoomService roomService;
 
     @GetMapping("/hotels")
     public String hotels(Model model){
@@ -35,12 +37,14 @@ public class HotelController {
         model.addAttribute("user", appController.user);
         model.addAttribute("administrator", Role.ADMINISTRATOR);
         model.addAttribute("userRole", Role.USER);
+        model.addAttribute("rooms", roomService.getRoomsByHotelIdAndRoomStatus(id, RoomStatus.EMPTY));
         return "hotel-info";
     }
 
-    @PostMapping("/hotel/order/{id}")
-    public String orderHotel(@PathVariable Long id) {
-        Purchase purchase = purchaseService.createPurchase(appController.user, id);
+    @PostMapping("/hotel/order/{hotelId}")
+    public String orderHotel(@PathVariable Long hotelId, int roomNumb) {
+        System.out.println("Work"+roomNumb);
+        Purchase purchase = purchaseService.createPurchase(appController.user, hotelId, roomNumb);
         purchaseService.savePurchase(purchase);
         return "redirect:/hotels";
     }
@@ -62,6 +66,7 @@ public class HotelController {
     @PostMapping("/hotel/add")
     public String addHotel(Hotel hotel) {
         hotelService.saveHotel(hotel);
+        roomService.createRooms(hotel);
         return "redirect:/hotels";
     }
 
