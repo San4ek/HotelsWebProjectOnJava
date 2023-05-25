@@ -17,14 +17,14 @@ public class RoomService {
 
     private final RoomRepository roomRepository;
 
-    public void updateRoomStatusBusy(int numb, Long hotelId) {
-        Room room = roomRepository.findRoomByHotel_IdAndRoomNumb(hotelId, numb);
+    public void updateRoomStatusBusy(Long roomId) {
+        Room room = roomRepository.findRoomById(roomId);
         room.setRoomStatus(RoomStatus.BUSY);
         roomRepository.save(room);
     }
 
-    public void updateRoomStatusEmpty(int numb, Long hotelId) {
-        Room room = roomRepository.findRoomByHotel_IdAndRoomNumb(hotelId, numb);
+    public void updateRoomStatusEmpty(Long roomId) {
+        Room room = roomRepository.findRoomById(roomId);
         room.setRoomStatus(RoomStatus.EMPTY);
         roomRepository.save(room);
     }
@@ -43,7 +43,7 @@ public class RoomService {
         return roomRepository.findRoomsByHotel_IdAndRoomStatus(id,roomStatus);
     }
 
-    public Room getRoomByHotelIdAndRoomNumb(Long hotelId, int roomNumb) {
-        return roomRepository.findRoomByHotel_IdAndRoomNumb(hotelId, roomNumb);
+    public Room getRoomById(Long roomId) {
+        return roomRepository.findRoomById(roomId);
     }
 }

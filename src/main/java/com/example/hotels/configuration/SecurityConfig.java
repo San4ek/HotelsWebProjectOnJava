@@ -26,22 +26,11 @@ public class SecurityConfig{
                 .authorizeHttpRequests()
                 .requestMatchers("/",
                         "/companies",
-                        "/company/**",
                         "/countries",
-                        "/country/**",
                         "/hotels",
-                        "/hotel/**",
-                        "/purchases",
-                        "/purchase/**",
-                        "/registration",
                         "/employees",
-                        "/employee/**",
-                        "/jobs",
-                        "/jobs/**",
-                        "/purchases",
-                        "/purchase/**",
-                        "/user/**",
-                        "/users")
+                        "/registration",
+                        "/jobs")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()

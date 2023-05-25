@@ -42,9 +42,8 @@ public class HotelController {
     }
 
     @PostMapping("/hotel/order/{hotelId}")
-    public String orderHotel(@PathVariable Long hotelId, int roomNumb) {
-        System.out.println("Work"+roomNumb);
-        Purchase purchase = purchaseService.createPurchase(appController.user, hotelId, roomNumb);
+    public String orderHotel(@PathVariable Long hotelId, Long roomId) {
+        Purchase purchase = purchaseService.createPurchase(appController.user, hotelId, roomId);
         purchaseService.savePurchase(purchase);
         return "redirect:/hotels";
     }
