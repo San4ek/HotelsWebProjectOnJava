@@ -99,7 +99,7 @@ public class HotelController {
 
         Purchase purchase = purchaseService.createPurchase(appController.user, longHotelId, longRoomId, startDate, endDate);
         int length=Math.abs(endDate.toLocalDate().getDayOfYear()-endDate.toLocalDate().getDayOfYear())+1;
-        int  cost=purchase.getHotel().getRoomType().getCost()*length;
+        int  cost=purchase.getRoom().getRoomType().getCost()*length;
         if (services!=null) {
             List<Service> serviceList = new ArrayList<>();
             for (String arg : services) {
@@ -134,7 +134,7 @@ public class HotelController {
     }
 
     @PostMapping("/hotel/add")
-    public String addHotel(@RequestParam(value = "services", required = false) Long[] services, Hotel hotel) {
+    public String addHotel(@RequestParam(value = "services", required = false) Long[] services, @RequestParam(value = "rooms") int[] rooms, Hotel hotel) {
         if (services!=null) {
             List<Service> serviceList = new ArrayList<>();
             for (Long arg : services) {
@@ -143,7 +143,7 @@ public class HotelController {
             hotel.setServices(serviceList);
         }
         hotelService.saveHotel(hotel);
-        roomService.createRooms(hotel);
+        roomService.createRooms(hotel, rooms);
         return "redirect:/hotels";
     }
 

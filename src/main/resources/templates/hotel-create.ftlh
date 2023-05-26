@@ -135,11 +135,10 @@
                 </#list>
             </#if>
         </select></p>
-    <p align="center">Количество номеров <br><input type="number" min="1" required name="numbOfRooms"/></p>
-    <p align="center">Тип номеров <br><select name="roomType.id" required>
+    <p align="center">Типы номеров <br>
             <#if roomTypes??>
                 <#list roomTypes as roomType>
-                    <option value="${roomType.id}">${roomType.name}</option>
+                    ${roomType.name}<input type="number" name="rooms" required min="1" value="1"><br>
                 </#list>
             </#if>
         </select></p>

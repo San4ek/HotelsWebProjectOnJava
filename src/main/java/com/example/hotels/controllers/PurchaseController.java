@@ -67,6 +67,7 @@ public class PurchaseController {
     @PostMapping("/purchase/{id}/edit")
     public String updatePurchase(@RequestParam(name = "services", required = false) String[] services, Model model, @PathVariable String id, Date startDate, Date endDate, String roomId) {
         Long purchaseId=IdConverter.convert(id);
+        Purchase oldPurchase=purchaseService.getPurchase(purchaseId);
         List<Purchase> purchases = purchaseService.getPurchasesByRoomId(IdConverter.convert(roomId));
         if (!purchases.isEmpty()) {
             for (Purchase listPurchase : purchases) {
@@ -110,9 +111,8 @@ public class PurchaseController {
             }
         }
 
-        Purchase oldPurchase=purchaseService.getPurchase(purchaseId);
         int length=Math.abs(startDate.toLocalDate().getDayOfYear()-endDate.toLocalDate().getDayOfYear())+1;
-        int cost=oldPurchase.getHotel().getRoomType().getCost()*length;
+        int cost=oldPurchase.getRoom().getRoomType().getCost()*length;
         if (services!=null) {
             List<Service> serviceList = new ArrayList<>();
             for (String arg : services) {

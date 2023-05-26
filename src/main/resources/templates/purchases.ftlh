@@ -109,7 +109,7 @@
     <#list purchases as purchase>
         <p align="center">${purchase.id}. ${purchase.user.name}: отель ${purchase.hotel.name}, номер ${purchase.room.roomNumb}, дата заселения: ${purchase.startDate}, дата выселения: ${purchase.endDate}, статус заявки: ${purchase.purchaseStatus.name()}
         <p align="center">Услуги: <#if purchase.services??><#list purchase.services as service>${service.name} </#list></#if>
-        <p align="center">Стоимость: ${purchase.cost}
+        <p align="center">Стоимость: $${purchase.cost}
         <#if user.role==userRole>
             <#if purchase.isExcepted() || purchase.isWait()>
                 <form action="/purchase/${purchase.id}/reject" method="post">

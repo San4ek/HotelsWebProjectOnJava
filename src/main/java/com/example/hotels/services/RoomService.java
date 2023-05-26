@@ -3,6 +3,7 @@ package com.example.hotels.services;
 import com.example.hotels.enums.RoomStatus;
 import com.example.hotels.models.Hotel;
 import com.example.hotels.models.Room;
+import com.example.hotels.models.RoomType;
 import com.example.hotels.repositories.RoomRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,7 @@ import java.util.List;
 public class RoomService {
 
     private final RoomRepository roomRepository;
+    private final RoomTypeService roomTypeService;
 
     public void updateRoomStatusBusy(Long roomId) {
         Room room = roomRepository.findRoomById(roomId);
@@ -29,13 +31,18 @@ public class RoomService {
         roomRepository.save(room);
     }
 
-    public void createRooms(Hotel hotel) {
-        for (int i=0; i< hotel.getNumbOfRooms(); ++i) {
-            Room room= new Room();
-            room.setRoomStatus(RoomStatus.EMPTY);
-            room.setRoomNumb(i+1);
-            room.setHotel(hotel);
-            roomRepository.save(room);
+    public void createRooms(Hotel hotel, int[] rooms) {
+        List<RoomType> roomTypes=roomTypeService.getRoomTypes();
+        int roomNumb=1;
+        for (int i=0; i<rooms.length; ++i) {
+            for (int j = 0; j < rooms[i]; ++j) {
+                Room room = new Room();
+                room.setHotel(hotel);
+                room.setRoomNumb(roomNumb++);
+                room.setRoomStatus(RoomStatus.EMPTY);
+                room.setRoomType(roomTypes.get(i));
+                roomRepository.save(room);
+            }
         }
     }
 

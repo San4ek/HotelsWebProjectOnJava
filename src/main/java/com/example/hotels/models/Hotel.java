@@ -43,9 +43,6 @@ public class Hotel {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "hotel", cascade = CascadeType.REMOVE)
     private List<Purchase> purchases;
 
-    @Column(name = "numb_of_rooms")
-    private int numbOfRooms;
-
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(
             name = "hotel_service",
@@ -53,8 +50,4 @@ public class Hotel {
             inverseJoinColumns = { @JoinColumn(name = "service_id") }
     )
     private List<Service> services;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="room_type_id")
-    private RoomType roomType;
 }

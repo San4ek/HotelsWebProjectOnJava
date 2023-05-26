@@ -142,7 +142,7 @@
                         <select name="roomId" required>
                             <#if rooms?has_content>
                                 <#list rooms as room>
-                                    <option value="${room.id}">${room.roomNumb}</option>
+                                    <option value="${room.id}">№${room.roomNumb} | ${room.roomType.capacity} чел. | $${room.roomType.cost}</option>
                                 </#list>
                             </#if>
                         </select>
@@ -152,7 +152,7 @@
                     <p align="center">Услуги<br>
                         <#if hotel.services??>
                             <#list hotel.services as service>
-                                <input type="checkbox" name="services" value="${service.id}"><b>${service.name}</b><br>
+                                <input type="checkbox" name="services" value="${service.id}"><b>${service.name} | $${service.cost}</b><br>
                             </#list>
                         </#if>
                     <input type="hidden" name="_csrf" value="${_csrf.token}">
