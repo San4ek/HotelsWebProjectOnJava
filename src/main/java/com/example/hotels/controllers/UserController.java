@@ -1,5 +1,6 @@
 package com.example.hotels.controllers;
 
+import com.example.hotels.Converter.IdConverter;
 import com.example.hotels.enums.Role;
 import com.example.hotels.models.User;
 import com.example.hotels.services.UserService;
@@ -36,8 +37,9 @@ public class UserController {
     }
 
     @PostMapping("/user/{id}/delete")
-    public String deleteUser(@PathVariable Long id){
-        userService.deleteUser(id);
+    public String deleteUser(@PathVariable String id){
+        Long longId= IdConverter.convert(id);
+        userService.deleteUser(longId);
         return "login";
     }
 
@@ -67,9 +69,9 @@ public class UserController {
     }
 
     @PostMapping("/user/{id}/set-role")
-    public String setRole(@PathVariable Long id) {
-        System.out.println("work");
-        userService.setDirectorRole(id);
+    public String setRole(@PathVariable String id) {
+        Long longId= IdConverter.convert(id);
+        userService.setDirectorRole(longId);
         return "redirect:/users";
     }
 }

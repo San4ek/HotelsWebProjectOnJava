@@ -53,4 +53,8 @@ public class Hotel {
             inverseJoinColumns = { @JoinColumn(name = "service_id") }
     )
     private List<Service> services;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="room_type_id")
+    private RoomType roomType;
 }

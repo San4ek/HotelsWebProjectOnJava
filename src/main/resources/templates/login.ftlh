@@ -100,7 +100,7 @@
         padding: 0px;
         font-family: 'Montserrat', sans-serif;
     }</style><header>
-    <h1 align="center" >________________________________________Отели________________________________________</h1>
+    <h1 align="center" >_____________________________________Отели____________________________________</h1>
 </header><br><br>
     <h2 align="center">Авторизация</h2>
     <form action="/login" method="post">

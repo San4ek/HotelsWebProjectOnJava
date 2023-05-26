@@ -43,7 +43,6 @@
     div {
         flex-direction: row;
         align-items: center;
-
     }
     select {
         color: #0007a7;
@@ -107,7 +106,7 @@
         padding: 0px;
         font-family: 'Montserrat', sans-serif;
     }</style><header>
-    <h1 align="center" >________________________________________Отели_______________________________________</h1>
+    <h1 align="center" >_____________________________________Отели____________________________________</h1>
 </header><br><br>
 <a href="/">НА ГЛАВНУЮ</a>
 <h1 align="center">Отели</h1><hr>
@@ -138,7 +137,6 @@
     </form>
     <#else>
         <#if user.role==userRole>
-            <#if hotel.numbOfRooms!=0>
                 <form action="/hotel/order/${hotel.id}" method="post">
                     <b>Номера</b><div>
                         <select name="roomId" required>
@@ -163,8 +161,6 @@
                 <#if errorMessage??>
                     <h2 style="color: red" align="center">${errorMessage}</h2>
                 </#if>
-                <#else> Нет свободных номеров
-            </#if>
         </#if>
 </#if>
 <footer>

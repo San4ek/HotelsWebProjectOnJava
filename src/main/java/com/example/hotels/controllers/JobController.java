@@ -1,5 +1,6 @@
 package com.example.hotels.controllers;
 
+import com.example.hotels.Converter.IdConverter;
 import com.example.hotels.enums.Role;
 import com.example.hotels.models.Job;
 import com.example.hotels.services.JobService;
@@ -25,16 +26,18 @@ public class JobController {
     }
 
     @GetMapping("/job/{id}")
-    public String job(@PathVariable Long id, Model model){
-        model.addAttribute("job", jobService.getJob(id));
+    public String job(@PathVariable String id, Model model){
+        Long longId= IdConverter.convert(id);
+        model.addAttribute("job", jobService.getJob(longId));
         model.addAttribute("user", appController.user);
         model.addAttribute("administrator", Role.ADMINISTRATOR);
         return "job-info";
     }
 
     @PostMapping("/job/delete/{id}")
-    public String deleteJob(@PathVariable Long id) {
-        jobService.deleteJob(id);
+    public String deleteJob(@PathVariable String id) {
+        Long longId= IdConverter.convert(id);
+        jobService.deleteJob(longId);
         return "redirect:/jobs";
     }
 
@@ -50,14 +53,16 @@ public class JobController {
     }
 
     @GetMapping("/job/{id}/edit")
-    public String editJob(@PathVariable Long id, Model model) {
-        model.addAttribute("job", jobService.getJob(id));
+    public String editJob(@PathVariable String id, Model model) {
+        Long longId= IdConverter.convert(id);
+        model.addAttribute("job", jobService.getJob(longId));
         return "job-edit";
     }
 
     @PostMapping("/job/edit/{id}")
-    public String jobEdit(@PathVariable Long id, Job job) {
-        jobService.editJob(id,job);
+    public String jobEdit(@PathVariable String id, Job job) {
+        Long longId= IdConverter.convert(id);
+        jobService.editJob(longId,job);
         return "redirect:/jobs";
     }
 }

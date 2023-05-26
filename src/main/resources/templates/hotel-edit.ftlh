@@ -100,7 +100,7 @@
         padding: 0px;
         font-family: 'Montserrat', sans-serif;
     }</style><header>
-    <h1 align="center" >________________________________________Отели________________________________________</h1>
+    <h1 align="center" >_____________________________________Отели____________________________________</h1>
 </header><br><br>
 <a href="/">НА ГЛАВНУЮ</a>
 <h1 align="center">Отели</h1><hr>
@@ -133,6 +133,18 @@
                     <option value="${country.id}">${country.name}</option>
                 </#list>
         </select></p>
+    <p  align="center">Тип комнат <br><select name="roomType.id" required>
+            <option value="${hotel.roomType.id}">${hotel.roomType.name}</option>
+            <#list roomTypes as roomType>
+                <option value="${roomType.id}">${roomType.name}</option>
+            </#list>
+        </select></p>
+    <p align="center">Услуги<br>
+        <#if services??>
+            <#list services as service>
+                <input type="checkbox" name="services" value="${service.id}"><b>${service.name}</b><br>
+            </#list>
+        </#if>
     <input type="hidden" name="_csrf" value="${_csrf.token}">
     <input type="submit" value="Изменить отель"/>
 </form>

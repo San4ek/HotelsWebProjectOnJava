@@ -1,5 +1,6 @@
 package com.example.hotels.controllers;
 
+import com.example.hotels.Converter.IdConverter;
 import com.example.hotels.enums.Role;
 import com.example.hotels.models.Country;
 import com.example.hotels.services.CountryService;
@@ -26,16 +27,18 @@ public class CountryController {
     }
 
     @GetMapping("/country/{id}")
-    public String country(@PathVariable Long id,Model model) {
-        model.addAttribute("country", countryService.getCountry(id));
+    public String country(@PathVariable String id,Model model) {
+        Long longId= IdConverter.convert(id);
+        model.addAttribute("country", countryService.getCountry(longId));
         model.addAttribute("user", appController.user);
         model.addAttribute("administrator", Role.ADMINISTRATOR);
         return "country-info";
     }
 
     @PostMapping("/country/delete/{id}")
-    public String deleteCountry(@PathVariable Long id) {
-        countryService.deleteCountry(id);
+    public String deleteCountry(@PathVariable String id) {
+        Long longId= IdConverter.convert(id);
+        countryService.deleteCountry(longId);
         return "redirect:/countries";
     }
 
@@ -51,14 +54,16 @@ public class CountryController {
     }
 
     @GetMapping("/country/{id}/edit")
-    public String editCountry(@PathVariable Long id, Model model) {
-        model.addAttribute("country", countryService.getCountry(id));
+    public String editCountry(@PathVariable String id, Model model) {
+        Long longId= IdConverter.convert(id);
+        model.addAttribute("country", countryService.getCountry(longId));
         return "country-edit";
     }
 
     @PostMapping("/country/edit/{id}")
-    public String countryEdit(@PathVariable Long id, Country country) {
-        countryService.editCountry(id,country);
+    public String countryEdit(@PathVariable String id, Country country) {
+        Long longId= IdConverter.convert(id);
+        countryService.editCountry(longId,country);
         return "redirect:/countries";
     }
 }

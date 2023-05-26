@@ -1,5 +1,6 @@
 package com.example.hotels.controllers;
 
+import com.example.hotels.Converter.IdConverter;
 import com.example.hotels.enums.Role;
 import com.example.hotels.models.Company;
 import com.example.hotels.services.CompanyService;
@@ -27,16 +28,18 @@ public class CompanyController {
     }
 
     @GetMapping("/company/{id}")
-    public String company(@PathVariable Long id, Model model){
-        model.addAttribute("company", companyService.getCompany(id));
+    public String company(@PathVariable String id, Model model){
+        Long longId= IdConverter.convert(id);
+        model.addAttribute("company", companyService.getCompany(longId));
         model.addAttribute("user", appController.user);
         model.addAttribute("administrator", Role.ADMINISTRATOR);
         return "company-info";
     }
 
     @PostMapping("/company/delete/{id}")
-    public String deleteCompany(@PathVariable Long id) {
-        companyService.deleteCompany(id);
+    public String deleteCompany(@PathVariable String id) {
+        Long longId= IdConverter.convert(id);
+        companyService.deleteCompany(longId);
         return "redirect:/companies";
     }
 
@@ -53,15 +56,17 @@ public class CompanyController {
     }
 
     @GetMapping("/company/{id}/edit")
-    public String editCompany(@PathVariable Long id, Model model) {
-        model.addAttribute("company", companyService.getCompany(id));
+    public String editCompany(@PathVariable String id, Model model) {
+        Long longId= IdConverter.convert(id);
+        model.addAttribute("company", companyService.getCompany(longId));
         model.addAttribute("companies", countryService.getCountries());
         return "company-edit";
     }
 
     @PostMapping("/company/edit/{id}")
-    public String companyEdit(@PathVariable Long id, Company company) {
-        companyService.editCompany(id,company);
+    public String companyEdit(@PathVariable String id, Company company) {
+        Long longId= IdConverter.convert(id);
+        companyService.editCompany(longId,company);
         return "redirect:/companies";
     }
 }

@@ -39,10 +39,6 @@ public class RoomService {
         }
     }
 
-    public List<Room> getRoomsByHotelIdAndRoomStatus(Long id, RoomStatus roomStatus) {
-        return roomRepository.findRoomsByHotel_IdAndRoomStatus(id,roomStatus);
-    }
-
     public Room getRoomById(Long roomId) {
         return roomRepository.findRoomById(roomId);
     }

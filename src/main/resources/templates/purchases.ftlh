@@ -100,7 +100,7 @@
         padding: 0px;
         font-family: 'Montserrat', sans-serif;
     }</style><header>
-    <h1 align="center" >________________________________________Отели________________________________________</h1>
+    <h1 align="center" >_____________________________________Отели____________________________________</h1>
 </header><br><br>
 <a href="/">НА ГЛАВНУЮ</a>
 <h1 align="center">Заявки на бронь</h1><hr>
@@ -115,6 +115,12 @@
                 <form action="/purchase/${purchase.id}/reject" method="post">
                     <input type="hidden" name="_csrf" value="${_csrf.token}">
                     <input type="submit" value="Отменить заявку">
+                </form>
+            </#if>
+            <#if purchase.isWait()>
+                <form action="/purchase/${purchase.id}/edit" method="get">
+                    <input type="hidden" name="_csrf" value="${_csrf.token}">
+                    <input type="submit" value="Изменить заявку">
                 </form>
             </#if>
         </#if>

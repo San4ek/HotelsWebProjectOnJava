@@ -100,7 +100,7 @@
         padding: 0px;
         font-family: 'Montserrat', sans-serif;
     }</style><header>
-    <h1 align="center" >________________________________________Отели________________________________________</h1>
+    <h1 align="center" >_____________________________________Отели____________________________________</h1>
 </header><br><br>
 <a href="/">НА ГЛАВНУЮ</a>
 <h1 align="center">Отели</h1><hr>
@@ -116,7 +116,6 @@
                     <input type="hidden" name="_csrf" value="${_csrf.token}">
                     <input type="submit" value="Добавить отель">
                 </form>
-
     </#if>
 <footer>
     <p align="center">Всегда с вами!</p>

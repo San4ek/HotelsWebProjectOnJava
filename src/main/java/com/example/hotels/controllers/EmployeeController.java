@@ -1,5 +1,6 @@
 package com.example.hotels.controllers;
 
+import com.example.hotels.Converter.IdConverter;
 import com.example.hotels.enums.Role;
 import com.example.hotels.models.Employee;
 import com.example.hotels.services.EmployeeService;
@@ -30,16 +31,18 @@ public class EmployeeController {
     }
 
     @GetMapping("/employee/{id}")
-    public String country(@PathVariable Long id, Model model) {
-        model.addAttribute("employee", employeeService.getEmployee(id));
+    public String country(@PathVariable String id, Model model) {
+        Long longId= IdConverter.convert(id);
+        model.addAttribute("employee", employeeService.getEmployee(longId));
         model.addAttribute("user", appController.user);
         model.addAttribute("administrator", Role.ADMINISTRATOR);
         return "employee-info";
     }
 
     @PostMapping("/employee/delete/{id}")
-    public String deleteEmployee(@PathVariable Long id) {
-        employeeService.deleteEmployee(id);
+    public String deleteEmployee(@PathVariable String id) {
+        Long longId= IdConverter.convert(id);
+        employeeService.deleteEmployee(longId);
         return "redirect:/employees";
     }
 
@@ -57,16 +60,18 @@ public class EmployeeController {
     }
 
     @GetMapping("/employee/{id}/edit")
-    public String editEmployee(@PathVariable Long id, Model model) {
-        model.addAttribute("employee", employeeService.getEmployee(id));
+    public String editEmployee(@PathVariable String id, Model model) {
+        Long longId= IdConverter.convert(id);
+        model.addAttribute("employee", employeeService.getEmployee(longId));
         model.addAttribute("jobs", jobService.getJobs());
         model.addAttribute("hotels", hotelService.getHotels());
         return "employee-edit";
     }
 
     @PostMapping("/employee/edit/{id}")
-    public String employeeEdit(@PathVariable Long id, Employee employee) {
-        employeeService.editEmployee(id,employee);
+    public String employeeEdit(@PathVariable String id, Employee employee) {
+        Long longId= IdConverter.convert(id);
+        employeeService.editEmployee(longId,employee);
         return "redirect:/employees";
     }
 }

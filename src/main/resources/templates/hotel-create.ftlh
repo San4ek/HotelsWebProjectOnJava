@@ -100,7 +100,7 @@
         padding: 0px;
         font-family: 'Montserrat', sans-serif;
     }</style><header>
-    <h1 align="center" >________________________________________Отели________________________________________</h1>
+    <h1 align="center" >_____________________________________Отели____________________________________</h1>
 </header><br><br>
 <a href="/">НА ГЛАВНУЮ</a>
 <h1 align="center">Отели</h1><hr>
@@ -136,6 +136,13 @@
             </#if>
         </select></p>
     <p align="center">Количество номеров <br><input type="number" min="1" required name="numbOfRooms"/></p>
+    <p align="center">Тип номеров <br><select name="roomType.id" required>
+            <#if roomTypes??>
+                <#list roomTypes as roomType>
+                    <option value="${roomType.id}">${roomType.name}</option>
+                </#list>
+            </#if>
+        </select></p>
     <p align="center">Услуги<br>
         <#if services??>
         <#list services as service>

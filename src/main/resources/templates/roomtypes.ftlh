@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Country</title>
+    <title>TourAgency</title>
 </head>
 <body><style>
     body {
@@ -66,11 +66,6 @@
         background-color: #191970;
         margin: 10px 0;
     }
-    select {
-        color: #0007a7;
-        background-color: #a389ff;
-        text-align: center;
-    }
 
     header {
         vertical-align: center;
@@ -88,6 +83,11 @@
         display: flex;
         justify-content: flex-end;
     }
+    select {
+        color: #0007a7;
+        background-color: #a389ff;
+        text-align: center;
+    }
 
     footer {
         position: fixed;
@@ -103,17 +103,16 @@
     <h1 align="center" >_____________________________________Отели____________________________________</h1>
 </header><br><br>
 <a href="/">НА ГЛАВНУЮ</a>
-<h1 align="center">Страны</h1><hr>
-<h3 align="center">Информация о стране</h3>
-<p align="center"><b>Название </b>${country.name}<br></p>
+<h1 align="center">Комнаты</h1><hr>
+<#if roomtypes?has_content>
+    <#list roomtypes as roomType>
+        <p align="center"><a href="/roomtype/${roomType.id}">${roomType.id}. ${roomType.name}</p>
+    </#list>
+<#else><h3 align="center">Нет комнат</h3>
+</#if>
 <#if user.role==administrator>
-    <form action="/country/delete/${country.id}" method="post">
-        <input type="hidden" name="_csrf" value="${_csrf.token}">
-        <input type="submit" value="Удалить страну">
-    </form>
-    <form action="/country/${country.id}/edit" method="get">
-        <input type="hidden" name="_csrf" value="${_csrf.token}">
-        <input type="submit" value="Редактировать страну">
+    <form action="/roomtype/create" method="get">
+        <input type="submit" value="Add roomtype">
     </form>
 </#if>
 <footer>
