@@ -107,7 +107,17 @@
 <#if purchases?has_content>
    <p align="center">
     <#list purchases as purchase>
-        <p align="center">${purchase.id}. ${purchase.user.name}: отель ${purchase.hotel.name}, номер ${purchase.room.roomNumb}, статус заявки: ${purchase.purchaseStatus.name()}
+        <p align="center">${purchase.id}. ${purchase.user.name}: отель ${purchase.hotel.name}, номер ${purchase.room.roomNumb}, дата заселения: ${purchase.startDate}, дата выселения: ${purchase.endDate}, статус заявки: ${purchase.purchaseStatus.name()}
+        <p align="center">Услуги: <#if purchase.services??><#list purchase.services as service>${service.name} </#list></#if>
+        <p align="center">Стоимость: ${purchase.cost}
+        <#if user.role==userRole>
+            <#if purchase.isExcepted() || purchase.isWait()>
+                <form action="/purchase/${purchase.id}/reject" method="post">
+                    <input type="hidden" name="_csrf" value="${_csrf.token}">
+                    <input type="submit" value="Отменить заявку">
+                </form>
+            </#if>
+        </#if>
         <#if user.role==directorRole>
             <#if purchase.isWait()>
                 <form action="/purchase/${purchase.id}/except" method="post">

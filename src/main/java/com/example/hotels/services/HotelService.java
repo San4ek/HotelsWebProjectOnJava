@@ -36,20 +36,4 @@ public class HotelService {
         hotel.setId(id);
         hotelRepository.save(hotel);
     }
-
-    public Hotel increaseNumbOfRooms(Purchase purchase) {
-        Hotel hotel = purchase.getHotel();
-        int numbOfRooms=hotel.getNumbOfRooms();
-        hotel.setNumbOfRooms(++numbOfRooms);
-
-        return  hotel;
-    }
-
-    public Hotel reduceNumbOfRooms(Purchase purchase) {
-        Hotel hotel = purchase.getHotel();
-        int numbOfRooms=hotel.getNumbOfRooms();
-        hotel.setNumbOfRooms(--numbOfRooms);
-
-        return  hotel;
-    }
 }

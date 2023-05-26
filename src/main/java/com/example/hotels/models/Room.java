@@ -33,4 +33,7 @@ public class Room {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "room",  cascade = CascadeType.REMOVE)
     private List<Purchase> purchases;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="room_type_id")
+    private RoomType roomType;
 }

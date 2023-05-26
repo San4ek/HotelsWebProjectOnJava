@@ -116,11 +116,18 @@
 <p align="center"><b>Страна </b>${hotel.country.name}</p>
 <p align="center"><b>Количество звезд </b>${hotel.numberOfStars}</p>
 <p align="center"><b>Компания владелец </b><a href="/company/${hotel.company.name}">${hotel.company.name}</a></p>
-<p align="center"><b>Работники </b><#list hotel.employees as employee>
+<p align="center"><b>Работники </b>
+    <#list hotel.employees as employee>
 <a href="/employee/${employee.id}">${employee.name}</a>
 </#list></p>
 <p align="center"><b>Главный администратор </b><a href="/director/${hotel.director.id}">${hotel.director.name}</a></p>
 <#if user.role==administrator>
+    <p align="center">Услуги<br>
+        <#if hotel.services??>
+            <#list hotel.services as service>
+                <b>${service.name}</b><br>
+            </#list>
+        </#if>
     <form action="/hotel/delete/${hotel.id}" method="post">
         <input type="hidden" name="_csrf" value="${_csrf.token}">
         <input type="submit" value="Удалить отель">
@@ -142,9 +149,20 @@
                             </#if>
                         </select>
                     </div>
+                    <b>Дата заселения</b><input type="date" min="" required name="startDate">
+                    <b>Дата выселения</b><input type="date" required name="endDate">
+                    <p align="center">Услуги<br>
+                        <#if hotel.services??>
+                            <#list hotel.services as service>
+                                <input type="checkbox" name="services" value="${service.id}"><b>${service.name}</b><br>
+                            </#list>
+                        </#if>
                     <input type="hidden" name="_csrf" value="${_csrf.token}">
                     <input type="submit" value="Забронировать отель">
                 </form>
+                <#if errorMessage??>
+                    <h2 style="color: red" align="center">${errorMessage}</h2>
+                </#if>
                 <#else> Нет свободных номеров
             </#if>
         </#if>

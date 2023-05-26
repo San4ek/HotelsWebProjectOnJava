@@ -10,4 +10,6 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
     List<Room> findRoomsByHotel_IdAndRoomStatus(Long id, RoomStatus roomStatus);
     Room findRoomByHotel_IdAndRoomNumb(Long hotelId, int roomNumb);
     Room findRoomById(Long id);
+
+    List<Room> findRoomByHotel_Id(Long id);
 }

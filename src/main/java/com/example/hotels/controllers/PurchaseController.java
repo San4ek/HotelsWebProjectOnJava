@@ -22,6 +22,7 @@ public class PurchaseController {
         model.addAttribute("purchases", purchaseService.getPurchases(appController.user));
         model.addAttribute("user", appController.user);
         model.addAttribute("directorRole", Role.DIRECTOR);
+        model.addAttribute("userRole", Role.USER);
         return "purchases";
     }
 
@@ -31,12 +32,6 @@ public class PurchaseController {
         model.addAttribute("user", appController.user);
         model.addAttribute("administrator", Role.ADMINISTRATOR);
         return "purchase-info";
-    }
-
-    @PostMapping("/purchase/delete/{id}")
-    public String deletePurchase(@PathVariable Long id) {
-        purchaseService.deletePurchase(id);
-        return "redirect:/purchases";
     }
 
     @PostMapping("/purchase/{id}/except")

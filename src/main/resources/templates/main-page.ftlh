@@ -113,12 +113,13 @@
     </form>
     <hr><br><h2 align="center">Ваше меню</h2>
     <h3 align="center"><a href="/hotels">Отели</a></h3>
-    <h3 align="center"><a href="/companies">Компании</a></h3>
-    <h3 align="center"><a href="/countries">Страны</a></h3>
-    <h3 align="center"><a href="/employees">Работники</a></h3>
-    <h3 align="center"><a href="/jobs">Должности</a></h3>
     <#if user.role==administrator>
+        <h3 align="center"><a href="/companies">Компании</a></h3>
+        <h3 align="center"><a href="/countries">Страны</a></h3>
+        <h3 align="center"><a href="/employees">Работники</a></h3>
+        <h3 align="center"><a href="/jobs">Должности</a></h3>
         <h3 align="center"><a href="/users">Пользователи</a></h3>
+        <h3 align="center"><a href="/services">Услуги</a></h3>
     </#if>
 <#else> <header><h1 align="center">________________________________________Отели________________________________________
     </h1></header><br><br><br><br><br><br><br><br><br>

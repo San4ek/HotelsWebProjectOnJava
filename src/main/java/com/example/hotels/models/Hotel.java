@@ -29,7 +29,7 @@ public class Hotel {
     @Column(name = "number_of_stars")
     private int numberOfStars;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "director_id")
     private User director;
 
@@ -45,4 +45,12 @@ public class Hotel {
 
     @Column(name = "numb_of_rooms")
     private int numbOfRooms;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(
+            name = "hotel_service",
+            joinColumns = { @JoinColumn(name = "hotel_id") },
+            inverseJoinColumns = { @JoinColumn(name = "service_id") }
+    )
+    private List<Service> services;
 }

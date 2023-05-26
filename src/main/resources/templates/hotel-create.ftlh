@@ -136,6 +136,12 @@
             </#if>
         </select></p>
     <p align="center">Количество номеров <br><input type="number" min="1" required name="numbOfRooms"/></p>
+    <p align="center">Услуги<br>
+        <#if services??>
+        <#list services as service>
+        <input type="checkbox" name="services" value="${service.id}"><b>${service.name}</b><br>
+        </#list>
+        </#if>
     <input type="hidden" name="_csrf" value="${_csrf.token}">
     <input type="submit" value="Добавить отель"/>
 </form>
