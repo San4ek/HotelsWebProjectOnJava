@@ -111,13 +111,13 @@
         <form action="/user/${user.id}/set-role" method="post">
             <input type="hidden" name="_csrf" value="${_csrf.token}">
             <input type="submit" value="Назначить администратором">
-        </form></p>
+        </form>
     </#list>
 <#else><h3>Нет зарегистрированных пользователей</h3>
 </#if>
 <footer>
     <p align="center">Всегда с вами!</p>
-    <p align="center">Служба поддержки: +375 (44) 763-61-10    </p>
+    <p align="center">Служба поддержки: +375 (29) 801-50-63</p>
 </footer>
 </body>
 </html>

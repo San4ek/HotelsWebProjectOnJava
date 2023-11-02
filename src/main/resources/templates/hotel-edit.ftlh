@@ -150,7 +150,7 @@
 </form>
 <footer>
     <p align="center">Всегда с вами!</p>
-    <p align="center">Служба поддержки: +375 (44) 763-61-10    </p>
+    <p align="center">Служба поддержки: +375 (29) 801-50-63</p>
 </footer>
 </body>
 </html>
