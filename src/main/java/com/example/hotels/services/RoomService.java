@@ -33,12 +33,11 @@ public class RoomService {
 
     public void createRooms(Hotel hotel, int[] rooms) {
         List<RoomType> roomTypes=roomTypeService.getRoomTypes();
-        int roomNumb=1;
         for (int i=0; i<rooms.length; ++i) {
             for (int j = 0; j < rooms[i]; ++j) {
                 Room room = new Room();
                 room.setHotel(hotel);
-                room.setRoomNumb(roomNumb++);
+                room.setRoomNumb(j+1);
                 room.setRoomStatus(RoomStatus.EMPTY);
                 room.setRoomType(roomTypes.get(i));
                 roomRepository.save(room);

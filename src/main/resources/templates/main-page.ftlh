@@ -2,7 +2,6 @@
 <html >
 <head>
     <title>Hotels</title>
-<#--    <link rel="stylesheet" type="text/css" href="css/test.css" media="screen">-->
 </head>
 <body><style>
     body {
@@ -121,7 +120,7 @@
         <h3 align="center"><a href="/users">Пользователи</a></h3>
         <h3 align="center"><a href="/services">Услуги</a></h3>
         <h3 align="center"><a href="/roomtypes">Комнаты</a></h3>
-    </#if>
+    </#if>/if>
 <#else> <header><h1 align="center">________________________________________Отели________________________________________
     </h1></header><br><br><br><br><br><br><br><br><br>
     <h3 align="center">На нашем сайте вы сможете быстро и удобно забронировать любой отель,<br>
